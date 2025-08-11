@@ -1,0 +1,20 @@
+{
+    "servers": {
+        "local-mcp-server": {
+            "command": "C:/Users/bhasker.addula/AppData/Local/Programs/Python/Python313/python.exe",
+            "args": [
+                "d:/Projects/MCP_SERVER_LOCAL_TEST/mcp_server.py"
+            ],
+            "env": {}
+        },
+        "remote-proxy-server": {
+            "command": "C:/Users/bhasker.addula/AppData/Local/Programs/Python/Python313/python.exe",
+            "args": [
+                "d:/Projects/MCP_SERVER_LOCAL_TEST/remote_proxy_server.py"
+            ],
+            "env": {
+                "REMOTE_MCP_BASE": "http://localhost:8081"
+            }
+        }
+    }
+}
