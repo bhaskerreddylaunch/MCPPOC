@@ -20,6 +20,13 @@ This is a proper Model Context Protocol (MCP) server implementation using Python
 - `ping`: Check if the MCP server is alive
 - `echo`: Echo back a message
 - `add_numbers`: Add two numbers and return the result
+- `get_ip_info`: Get current public IP address and location information
+- `get_local_ip_config`: Get local network configuration including hostname, interfaces, and IP addresses
+- `get_server_info`: Get server system information including hostname, platform, and resource usage
+- `get_system_status`: Get current system resource usage (CPU, memory, disk)
+- `get_weather`: Get current weather information for a city
+- `divide_numbers`: Divide two numbers and return the result
+- `multiply_numbers`: Multiply two numbers and return the result
 
 ## VS Code Integration
 The server is configured in your VS Code settings.json under `mcp.servers` section and should be discoverable by MCP-compatible extensions like Copilot MCP.
