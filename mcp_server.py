@@ -33,7 +33,7 @@ def get_ip_info() -> str:
         # Try multiple free IP APIs
         apis = [
             "https://api.ipify.org?format=json",
-            "https://httpbin.org/ip",
+            "https://httpbin.org/ip", 
             "https://jsonip.com"
         ]
 
@@ -65,6 +65,57 @@ def get_ip_info() -> str:
         return "Error: Unable to fetch IP information from any API"
     except Exception as e:
         return f"Error fetching IP info: {str(e)}"
+
+
+@mcp.tool()
+def get_local_ip_config() -> str:
+    """Get local network configuration including hostname, interfaces, and IP addresses."""
+    try:
+        import subprocess
+        import socket
+        import platform
+        
+        result = "🌐 Local IP Configuration\n"
+        result += "=" * 40 + "\n"
+        
+        # Get hostname
+        hostname = socket.gethostname()
+        result += f"Hostname: {hostname}\n"
+        
+        # Get local IP address
+        try:
+            # Connect to a dummy address to get local IP
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(("8.8.8.8", 80))
+            local_ip = s.getsockname()[0]
+            s.close()
+            result += f"Local IP: {local_ip}\n"
+        except:
+            result += "Local IP: Unable to determine\n"
+        
+        # Get platform info
+        result += f"Platform: {platform.platform()}\n"
+        result += f"System: {platform.system()}\n\n"
+        
+        # Try to get network interface info using ip command (Linux)
+        try:
+            ip_output = subprocess.check_output(['ip', 'addr', 'show'], text=True, timeout=10)
+            result += "--- Network Interfaces ---\n"
+            result += ip_output
+        except:
+            # Fallback to ifconfig if available
+            try:
+                ifconfig_output = subprocess.check_output(['ifconfig'], text=True, timeout=10)
+                result += "--- Network Interfaces (ifconfig) ---\n"
+                result += ifconfig_output
+            except:
+                result += "--- Network Interfaces ---\n"
+                result += "Unable to retrieve network interface information\n"
+        
+        return result
+        
+    except Exception as e:
+        return f"Error getting local IP configuration: {str(e)}"
 
 
 @mcp.tool()
